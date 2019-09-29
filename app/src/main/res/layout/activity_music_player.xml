@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MusicPlayer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        android:id="@+id/music_player_layout"
+        android:layout_height="300dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:background="@null"
+            android:id="@+id/close_music_player"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_close"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Now Playing"
+            android:textSize="22sp"
+            android:textColor="@color/colorWhite"
+            android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:id="@+id/song_price"
+                android:layout_marginTop="100dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:background="@color/unsuccessful_registeration_color"
+                android:text=""/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@id/music_player_layout"
+        android:scrollbars="none"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/song_title_layout"
+        android:layout_height="wrap_content">
+
+
+        <SeekBar
+            android:id="@+id/music_seekbar"
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:layout_height="0dp"
+            android:progress="80"
+            android:layout_weight="1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginStart="30dp"
+                android:textColor="#000000"
+                android:id="@+id/song_duration"
+                android:layout_gravity="end"
+                android:text="00:00:00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="#000000"
+                android:id="@+id/song_counter"
+                android:layout_marginEnd="30dp"
+                android:layout_gravity="end"
+                android:layout_alignParentEnd="true"
+                android:text="00:00:00" />
+
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#000000"
+            android:layout_gravity="center"
+            android:id="@+id/song_title"
+            android:text="Lean On - MyMp3Song.com"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/song_author"
+            android:layout_gravity="center"
+            android:layout_marginTop="-20dp"
+            android:text="Major Lazer, MO, DJ Snake"/>
+
+    </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/quick_actions_buttons_layout"
+            android:layout_below="@id/song_title_layout"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/no_of_posts_layout"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="100dp">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:id="@+id/previous_btn"
+                    android:focusable="true"
+                    android:background="@drawable/ic_skip_previous" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="100dp">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:elevation="5dp"
+                    android:id="@+id/pause_play_btn"
+                    android:background="@drawable/rounded_btn"
+                    android:src="@drawable/ic_play"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="100dp">
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:id="@+id/next_btn"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_skip_next"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+            <!--adkdla-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/replay_btn_layout"
+        android:layout_below="@id/quick_actions_buttons_layout"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/replay_btn_layout_layout"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="100dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:clickable="true"
+                android:id="@+id/single_loop"
+                android:focusable="true"
+                android:background="@drawable/ic_repeat" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="100dp">
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:id="@+id/download_song_btn"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_download"
+                />
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+
+    <!--lda-->
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

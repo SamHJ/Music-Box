@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "41081361085",
+    "firebase_url": "https://musicbox-6c1ea.firebaseio.com",
+    "project_id": "musicbox-6c1ea",
+    "storage_bucket": "musicbox-6c1ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41081361085:android:8678d72a01f12a7bcfddd4",
+        "android_client_info": {
+          "package_name": "havotech.com.musicbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41081361085-48hsjtp13258aispvqs81mihokd9rmqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "havotech.com.musicbox",
+            "certificate_hash": "5216be12f2b830b2f718a2690e4b74775b48b49c"
+          }
+        },
+        {
+          "client_id": "41081361085-64s307mqmr29uguh91o7ekhgkm2voiso.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiYQUJ2Wbv_qVIscARsWh-9_sSJ_RGLik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41081361085-64s307mqmr29uguh91o7ekhgkm2voiso.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
