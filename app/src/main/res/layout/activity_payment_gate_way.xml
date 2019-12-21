@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentGateWay">
+
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigation_opener_toolbar"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/text_price"
+        android:text=""
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginTop="180dp"
+        android:textSize="25sp"
+        android:layout_below="@id/navigation_opener_toolbar"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:id="@+id/text_input_layout"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_price"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/email_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            android:inputType="text"
+            android:padding="15dp"
+            android:background="@drawable/edit_text_outline"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/colorPrimaryDark"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_margin="50dp"
+        android:text="CONTINUE"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:id="@+id/continue_btn"
+        android:background="@drawable/btn_gradient_style"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_input_layout"/>
+</RelativeLayout>
