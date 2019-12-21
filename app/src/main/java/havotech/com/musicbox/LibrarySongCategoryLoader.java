@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongCategoryLoaders extends AppCompatActivity {
+public class LibrarySongCategoryLoader extends AppCompatActivity {
 
     Toolbar mToolbar;
 
@@ -41,10 +41,10 @@ public class SongCategoryLoaders extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_category_loaders);
+        setContentView(R.layout.activity_library_song_category_loader);
         mToolbar = findViewById(R.id.navigation_opener_toolbar);
-        String title = getIntent().getStringExtra("title");
-        String key = getIntent().getStringExtra("key");
+        String title = getIntent().getStringExtra("library_title");
+        String key = getIntent().getStringExtra("library_key");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,7 +59,7 @@ public class SongCategoryLoaders extends AppCompatActivity {
         songsAdapter = new SongsAdapter(this, songs);
         category_recyclerview.setAdapter(songsAdapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Songs").child(key);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Songs").child("Library").child(key);
         databaseReference.keepSynced(true);
         valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,7 +77,7 @@ public class SongCategoryLoaders extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(SongCategoryLoaders.this, ""+databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LibrarySongCategoryLoader.this, ""+databaseError.getMessage(), Toast.LENGTH_LONG).show();
                 loading_catgory_bar.setVisibility(View.GONE);
             }
         });
@@ -110,8 +110,8 @@ public class SongCategoryLoaders extends AppCompatActivity {
 
 
     private void firebaseMusicSearch(String query) {
-        String key = getIntent().getStringExtra("key");
-        databaseReference = FirebaseDatabase.getInstance().getReference("Songs").child(key);
+        String key = getIntent().getStringExtra("library_key");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Songs").child("Library").child(key);
         databaseReference.keepSynced(true);
         Query firebaseMusicSearchQuery = databaseReference.orderByChild("song_name").startAt(query.toUpperCase()).endAt(query + "\uf0ff");
 
@@ -131,7 +131,7 @@ public class SongCategoryLoaders extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(SongCategoryLoaders.this, ""+databaseError.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LibrarySongCategoryLoader.this, ""+databaseError.getMessage(), Toast.LENGTH_LONG).show();
                 loading_catgory_bar.setVisibility(View.GONE);
             }
         });

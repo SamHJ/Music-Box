@@ -17,30 +17,30 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class AdvertAdapter extends RecyclerView.Adapter<AdvertAdapter.SongsAdapterViewHolder> {
+public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.SongsAdapterViewHolder> {
 
     Context context;
-    List<AdvertModel> advertModels;
+    List<LibraryModel> libraryModels;
 
-    public AdvertAdapter(Context context, List<AdvertModel> advertModels) {
+    public LibraryAdapter(Context context, List<LibraryModel> libraryModels) {
         this.context = context;
-        this.advertModels = advertModels;
+        this.libraryModels = libraryModels;
     }
 
     @NonNull
     @Override
     public SongsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.buzz_layout,viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.library_layout,viewGroup, false);
         return  new SongsAdapterViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final SongsAdapterViewHolder holder, int i) {
-        final AdvertModel advertModel = advertModels.get(i);
-        holder.advert_title.setText(advertModel.getTitle());
-        holder.advert_date.setText(advertModel.getDate_and_time());
-        Picasso.get().load(advertModel.getAdvert_image_url()).networkPolicy(NetworkPolicy.OFFLINE)
-                .placeholder(R.drawable.a).error(R.drawable.a).into(holder.advert_image,
+        final LibraryModel advertModel = libraryModels.get(i);
+        holder.library_name.setText(advertModel.getName());
+        holder.no_of_songs_in_library.setText(String.valueOf(advertModel.getNo_of_songs()));
+        Picasso.get().load(advertModel.getImage_url()).networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(R.drawable.a).error(R.drawable.a).into(holder.library_image,
                 new Callback() {
                     @Override
                     public void onSuccess() {
@@ -49,20 +49,20 @@ public class AdvertAdapter extends RecyclerView.Adapter<AdvertAdapter.SongsAdapt
 
                     @Override
                     public void onError(Exception e) {
-                        Picasso.get().load(advertModel.getAdvert_image_url())
-                                .placeholder(R.drawable.a).error(R.drawable.a).into(holder.advert_image);
+                        Picasso.get().load(advertModel.getImage_url())
+                                .placeholder(R.drawable.a).error(R.drawable.a).into(holder.library_image);
                     }
 
 
                 });
 
 
-        holder.advert_cardview.setOnClickListener(new View.OnClickListener() {
+        holder.library_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent openAdvertUrl = new Intent(context, WebViewLoader.class);
-                openAdvertUrl.putExtra("advert_url", advertModel.getAdvert_url() );
-                openAdvertUrl.putExtra("advert_title", advertModel.getTitle());
+                Intent openAdvertUrl = new Intent(context, LibrarySongCategoryLoader.class);
+                openAdvertUrl.putExtra("library_title", advertModel.getName() );
+                openAdvertUrl.putExtra("library_key", advertModel.getKey());
                 Activity activity = (Activity) context;
                 context.startActivity(openAdvertUrl);
                 activity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
@@ -72,21 +72,21 @@ public class AdvertAdapter extends RecyclerView.Adapter<AdvertAdapter.SongsAdapt
 
     @Override
     public int getItemCount() {
-        return advertModels.size();
+        return libraryModels.size();
     }
 
     public class SongsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        TextView advert_title, advert_date;
-        ImageView advert_image;
-        CardView advert_cardview;
+        TextView library_name, no_of_songs_in_library;
+        ImageView library_image;
+        CardView library_card_view;
 
         public SongsAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
-           advert_title = itemView.findViewById(R.id.advert_title);
-           advert_date = itemView.findViewById(R.id.advert_date);
-           advert_image = itemView.findViewById(R.id.advert_image);
-           advert_cardview = itemView.findViewById(R.id.advert_card_view);
+            library_name = itemView.findViewById(R.id.library_name);
+            no_of_songs_in_library = itemView.findViewById(R.id.no_of_songs_in_library);
+            library_image = itemView.findViewById(R.id.library_image);
+            library_card_view = itemView.findViewById(R.id.library_card_view);
             itemView.setOnClickListener(this);
         }
 

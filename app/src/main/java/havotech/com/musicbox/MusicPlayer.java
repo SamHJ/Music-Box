@@ -1,8 +1,10 @@
 package havotech.com.musicbox;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -29,16 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,8 +38,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class MusicPlayer extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
@@ -62,8 +52,10 @@ public class MusicPlayer extends AppCompatActivity implements MediaPlayer.OnPrep
 
     String song_name, song_image_url, song_url, price, artiste_name;
     ImageButton single_loop,download_song_btn;
+
     int[] images = {R.drawable.home_header_img, R.drawable.header_home,R.drawable.home_2, R.drawable.home_3, R.drawable.home_4,
-            R.drawable.home_5,R.drawable.home_6};
+            R.drawable.home_5,R.drawable.home_6,R.drawable.home_7,R.drawable.home_8, R.drawable.home_9,
+            R.drawable.home_10,R.drawable.home_11,R.drawable.home_12,R.drawable.home_13,R.drawable.home_14,R.drawable.home_15};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +79,7 @@ public class MusicPlayer extends AppCompatActivity implements MediaPlayer.OnPrep
 
         musicImageLayout = findViewById(R.id.music_player_layout);
         Random rr = new Random();
-        int image_int = rr.nextInt(7);
+        int image_int = rr.nextInt(16);
         musicImageLayout.setBackgroundResource(images[image_int]);
         new LoadBackground(song_image_url,"androidfigure").execute();
 
@@ -107,7 +99,7 @@ public class MusicPlayer extends AppCompatActivity implements MediaPlayer.OnPrep
        if(price.equals("Free")){
            song_price.setVisibility(View.GONE);
        }else {
-           song_price.setText(price);
+           song_price.setText("N "+price);
        }
 
 //        loading_music_bar = findViewById(R.id.loading_music_bar);
@@ -254,7 +246,14 @@ public class MusicPlayer extends AppCompatActivity implements MediaPlayer.OnPrep
                   request.setDestinationInExternalFilesDir(getApplicationContext(), path + "/Music Box" + "/Songs" +  "/Audio", song_name);
                   downloadManager.enqueue(request);
               }else {
-                  Toast.makeText(MusicPlayer.this, "Please purchase this song first!",Toast.LENGTH_LONG).show();
+                  Intent openAdvertUrl = new Intent(MusicPlayer.this, PaymentGateWay.class);
+                  openAdvertUrl.putExtra("price", price );
+                  openAdvertUrl.putExtra("song_name", song_name);
+                  openAdvertUrl.putExtra("type","mp3");
+                  openAdvertUrl.putExtra("url", song_url);
+                  Activity activity = (Activity) MusicPlayer.this;
+                  MusicPlayer.this.startActivity(openAdvertUrl);
+                  activity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
               }
             }
         });

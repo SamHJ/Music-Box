@@ -147,7 +147,6 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/no_of_posts_layout"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:orientation="vertical"
@@ -205,12 +204,10 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginBottom="20dp"
-        android:id="@+id/replay_btn_layout"
         android:layout_below="@id/quick_actions_buttons_layout"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/replay_btn_layout_layout"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:orientation="vertical"

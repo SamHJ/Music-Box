@@ -1,9 +1,11 @@
 package havotech.com.musicbox;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +40,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +49,7 @@ import java.util.Random;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements UpdateHelper.OnUpdateCheckListener{
 
     Toolbar mToolbar;
     DrawerLayout drawerLayout;
@@ -65,7 +68,8 @@ public class HomeFragment extends Fragment {
     TextView home_featured_text;
 
     int[] images = {R.drawable.home_header_img, R.drawable.header_home,R.drawable.home_2, R.drawable.home_3, R.drawable.home_4,
-            R.drawable.home_5,R.drawable.home_6};
+            R.drawable.home_5,R.drawable.home_6,R.drawable.home_7,R.drawable.home_8, R.drawable.home_9,
+            R.drawable.home_10,R.drawable.home_11,R.drawable.home_12,R.drawable.home_13,R.drawable.home_14,R.drawable.home_15};
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -78,6 +82,12 @@ public class HomeFragment extends Fragment {
         View homeFragmentView =  inflater.inflate(R.layout.fragment_home, container, false);
         setHasOptionsMenu(true);
 
+        //check for new app updates
+        UpdateHelper.with(getContext())
+                .onUpdateCheck(this)
+                .check();
+
+
         mToolbar = homeFragmentView.findViewById(R.id.userhome_navigation_opener_include);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("");
@@ -85,7 +95,7 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowCustomEnabled(true);
         Random r = new Random();
-        int image_int = r.nextInt(7);
+        int image_int = r.nextInt(16);
         mToolbar.setBackgroundResource(images[image_int]);
 
         drawerLayout = homeFragmentView.findViewById(R.id.drawer_layout);
@@ -111,18 +121,20 @@ public class HomeFragment extends Fragment {
                      songModel.setmKey(dataSnapshot.getKey());
                      songs.add(songModel);
                  }
+                Random r = new Random();
+                final int song_int = r.nextInt(songs.size());
                  songsAdapter.notifyDataSetChanged();
                  loading_music_bar.setVisibility(View.GONE);
-                 home_featured_text.setText(songs.get(2).getSong_name()+" By "+songs.get(2).getArtiste_name());
+                 home_featured_text.setText(songs.get(song_int).getSong_name()+" By "+songs.get(song_int).getArtiste_name());
                  cardview.setOnClickListener(new View.OnClickListener() {
                      @Override
                      public void onClick(View v) {
                          Intent openMusicPlayer = new Intent(getContext(), MusicPlayer.class);
-                         openMusicPlayer.putExtra("song_url", songs.get(2).getSong_url() );
-                         openMusicPlayer.putExtra("song_name", songs.get(2).getSong_name());
-                         openMusicPlayer.putExtra("artiste_name", songs.get(2).getArtiste_name());
-                         openMusicPlayer.putExtra("price", songs.get(2).getPrice());
-                         openMusicPlayer.putExtra("song_image", songs.get(2).getSong_image_url());
+                         openMusicPlayer.putExtra("song_url", songs.get(song_int).getSong_url() );
+                         openMusicPlayer.putExtra("song_name", songs.get(song_int).getSong_name());
+                         openMusicPlayer.putExtra("artiste_name", songs.get(song_int).getArtiste_name());
+                         openMusicPlayer.putExtra("price", songs.get(song_int).getPrice());
+                         openMusicPlayer.putExtra("song_image", songs.get(song_int).getSong_image_url());
                          Activity activity = (Activity) getContext();
                          getContext().startActivity(openMusicPlayer);
                          activity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
@@ -237,6 +249,55 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onUpdateCheckListener(String urlApp, String versionApp) {
+        showUpdateCustomDialog(versionApp, urlApp);
+    }
+
+    @SuppressLint("InflateParams")
+    private void showUpdateCustomDialog(String currentVersion, final String urlApp) {
+        //before inflating the custom alert dialog layout, we will get the current activity viewgroup
+//        int view_id = ((ViewGroup) Objects.requireNonNull(getView()).getParent()).getId();
+//        ViewGroup viewGroup = getView().findViewById(view_id);
+
+
+        //then we will inflate the custom alert dialog xml that we created
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.update_dialog, null);
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        //finally creating the alert dialog and displaying it
+        final AlertDialog alertDialog = builder.create();
+
+        Button dialog_btn = (Button) dialogView.findViewById(R.id.buttonError);
+        TextView success_text = (TextView) dialogView.findViewById(R.id.error_text);
+        TextView success_title = (TextView) dialogView.findViewById(R.id.error_title);
+
+        success_text.setText("A newer version of Music Box, version " +currentVersion + ", is now available on App stores!");
+
+        // if the OK button is clicked, close the success dialog
+        dialog_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String appPackageName = getContext().getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+            }
+        });
+
+        alertDialog.show();
+
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -251,4 +312,6 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
         databaseReference.removeEventListener(valueEventListener);
     }
+
+
 }

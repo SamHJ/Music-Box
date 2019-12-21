@@ -1,5 +1,6 @@
 package havotech.com.musicbox;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -135,6 +136,10 @@ public class MainNavContainer extends AppCompatActivity {
         switch (menuItem.getItemId()){
 
             case R.id.nav_drawer_settings:
+                Intent openSettings = new Intent(MainNavContainer.this, Settings.class);
+                Activity activit = (Activity) MainNavContainer.this;
+                MainNavContainer.this.startActivity(openSettings);
+                activit.overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
 
             case R.id.nav_drawer_share:
@@ -150,7 +155,11 @@ public class MainNavContainer extends AppCompatActivity {
                 showRateDialog(this);
                 break;
 
-            case R.id.nav_drawer_donate:
+            case R.id.nav_drawer_release_note:
+                Intent openAdvertUrl = new Intent(MainNavContainer.this, ChangeLog.class);
+                Activity activity = (Activity) MainNavContainer.this;
+                MainNavContainer.this.startActivity(openAdvertUrl);
+                activity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 break;
 
 

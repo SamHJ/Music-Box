@@ -5,6 +5,45 @@
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="next_text">Next</string>
+    <!--intro one-->
+    <string name="intro_title_one">Welcome to Music Box</string>
+    <string name="intro_desc_one">Live streaming at its best!</string>
+
+    <!--intro two-->
+    <string name="intro_title_two">Fun Streaming</string>
+    <string name="intro_desc_two">Stream your favourite songs and videos on Music Box</string>
+
+    <!--intro three-->
+    <string name="intro_title_three">Stream, Download and Share</string>
+    <string name="intro_desc_three">Your favourite songs and videos are just a click away</string>
+
+    <!--intro four-->
+    <string name="intro_title_four">Live updates awaits you!</string>
+    <string name="intro_desc_four">Receive notifications on new musics and videos</string>
+
+    <!--intro five-->
+    <string name="intro_title_five">Let\'s get started</string>
+    <string name="intro_desc_five">Time to see what you can get from Music Box</string>
+
+
+    <string name="title_activity_change_log">Release Notes</string>
+    <string name="changelog_text">
+        "The following are the changes made to\n Music Box so far : \n\n"
+
+        "<b>Release: Android 1.1.1 \n</b>
+            Release date: 30th September 2019 \n\n
+       <b>New Features \n</b>
+        *Support for file Download \n\n
+        <b>Improvements \n</b>
+        *Added libraries for improved user experience \n\n
+       <b>Bug Fixes \n </b>
+        *Fixed musics and video lazy load \n
+        *Fixed lottie bugs \n
+
+
+    </string>
+
+
 </resources>

@@ -40,7 +40,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.SongsAdapter
         holder.video_title.setText(videoModel.getVideo_title());
         holder.video_date.setText(videoModel.getVideo_date());
         holder.video_author.setText(videoModel.getVideo_author());
-        Picasso.with(context).load(videoModel.getVideo_image_url()).networkPolicy(NetworkPolicy.OFFLINE)
+        Picasso.get().load(videoModel.getVideo_image_url()).networkPolicy(NetworkPolicy.OFFLINE)
                 .placeholder(R.drawable.a).error(R.drawable.a).into(holder.video_image,
                 new Callback() {
                     @Override
@@ -49,11 +49,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.SongsAdapter
                     }
 
                     @Override
-                    public void onError() {
-
-                        Picasso.with(context).load(videoModel.getVideo_image_url())
+                    public void onError(Exception e) {
+                        Picasso.get().load(videoModel.getVideo_image_url())
                                 .placeholder(R.drawable.a).error(R.drawable.a).into(holder.video_image);
                     }
+
+
                 });
 
 

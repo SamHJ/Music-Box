@@ -43,10 +43,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsAdapter
         if(songModel.getPrice().equals("Free")){
             holder.song_price.setVisibility(View.GONE);
         }else {
-            holder.song_price.setText(songModel.getPrice());
+            holder.song_price.setText("N "+songModel.getPrice());
         }
         holder.artiste_name.setText(songModel.getArtiste_name());
-        Picasso.with(context).load(songModel.getSong_image_url()).networkPolicy(NetworkPolicy.OFFLINE)
+        Picasso.get().load(songModel.getSong_image_url()).networkPolicy(NetworkPolicy.OFFLINE)
                 .placeholder(R.drawable.a).error(R.drawable.a).into(holder.song_image,
                 new Callback() {
                     @Override
@@ -55,9 +55,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongsAdapter
                     }
 
                     @Override
-                    public void onError() {
-
-                        Picasso.with(context).load(songModel.getSong_image_url())
+                    public void onError(Exception e) {
+                        Picasso.get().load(songModel.getSong_image_url())
                                 .placeholder(R.drawable.a).error(R.drawable.a).into(holder.song_image);
                     }
                 });

@@ -1,8 +1,10 @@
 package havotech.com.musicbox;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Environment;
@@ -40,6 +42,11 @@ public class VideoPlayer extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(video_title);
+        if(price.equals("Free")){
+            getSupportActionBar().setSubtitle(price);
+        }else {
+            getSupportActionBar().setSubtitle("N"+price);
+        }
 
         videoView = findViewById(R.id.videoView);
         MediaController mediaController= new MediaController(this);
@@ -108,7 +115,14 @@ public class VideoPlayer extends AppCompatActivity {
                     request.setDestinationInExternalFilesDir(getApplicationContext(), path + "/Music Box" + "/Videos" +  "/Video", video_title);
                     downloadManager.enqueue(request);
                 }else {
-                    Toast.makeText(VideoPlayer.this, "Please purchase this video first!",Toast.LENGTH_LONG).show();
+                        Intent openAdvertUrl = new Intent(VideoPlayer.this, PaymentGateWay.class);
+                        openAdvertUrl.putExtra("price", price );
+                        openAdvertUrl.putExtra("song_name", video_title);
+                        openAdvertUrl.putExtra("type","mp4");
+                        openAdvertUrl.putExtra("url", video_url);
+                        Activity activity = (Activity) VideoPlayer.this;
+                        VideoPlayer.this.startActivity(openAdvertUrl);
+                        activity.overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 }
 
                 break;
